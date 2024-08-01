@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TRPG AI Service</title>
+</head>
+<body>
+    <h1>Welcome to the TRPG AI Service</h1>
+    <div>
+        <label for="action">Enter your action:</label>
+        <input type="text" id="action" name="action">
+        <button onclick="sendAction()">Submit</button>
+    </div>
+    <div id="response"></div>
+
+    <script>
+        function sendAction() {
+            const action = document.getElementById('action').value;
+            fetch('/api/perform_action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: action })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.response;
+            });
+        }
+    </script>
+</body>
+</html>
